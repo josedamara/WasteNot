@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <!-- This meta tag ensures that the website renders correctly across different device sizes, enhancing mobile responsiveness. -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Link to the external CSS stylesheet. Uncomment if you wish to customize or add styling. -->
+    <link rel="stylesheet" href="ingredient-and-recipe.css">  
+
+    <title>WasteNot</title>
+</head>
+<body>
+    <header>
+        <div><a href="user.html">
+            User
+        </a></div>
+        <div><a href="ingredient-and-recipe.html">
+            Ingredient and Recipe
+        </a></div>
+        <div><a href="nutrition.html">
+            Nutrition
+        </a></div>
+        <div><a href="donation.html">
+            Donation
+        </a></div>
+        <div><a href="store-and-utensil.html">
+            Store and Utensil
+        </a></div>
+        <div><a href="complex-queries.html">
+            Complex Queries
+        </a></div>
+    </header>
+
+    <hr>
+
+    <div class="ingredient-section">
+        <div class="add-ingredient-section">
+            <h1 class="add-ingredient-title-text">Add Ingredient</h1>
+            <div class="add-ingredient-form">
+                <form>
+                    <p>Name</p>
+                    <input type="text" id="new-ingredient-name" placeholder="Name"> <br><br>
+        
+                    <p>Shelf life (in days)</p>
+                    <input type="text" id="new-ingredient-shelf-life" placeholder="e.g. 5"> <br><br>
+        
+                    <button type="submit" class="add-ingredient-button">Add ingredient</button>
+                </form>
+            </div>
+        </div>
+        <div class="remove-ingredient-section">
+            <h1 class="remove-ingredient-title-text">Remove Ingredient</h1>
+            <div class="remove-ingredient-form">
+                <form>
+                    <p>Name</p>
+                    <input type="text" id="del-ingredient-name" placeholder="Name"> <br><br>
+        
+                    <button type="submit" class="remove-ingredient-button">Remove ingredient</button>
+                </form>
+            </div>
+        </div>
+        <div class="list-ingredient-section">
+            <h1 class="list-ingredient-title-text">Ingredient List</h1>
+            <div id="list-ingredient-table"></div>
+        </div>
+    </div>
+
+    <hr>
+
+    <div class="food-section">
+        <div class ="add-remove-food-section">
+            <div class="add-food-section">
+                <h1 class="add-food-title-text">Add Food</h1>
+                <div class="add-food-form">
+                    <form>
+                        <p>Name</p>
+                        <input type="text" id="new-food-name" placeholder="Name"> <br><br>
+            
+                        <p>Origin</p>
+                        <input type="text" id="new-food-origin" placeholder="e.g. Indonesia"> <br><br>
+
+                        <p>Description</p>
+                        <input type="text" id="new-food-description" placeholder="e.g. Deep fried chicken wrapped with fluor."> <br><br>
+            
+                        <button type="submit" class="add-food-button">Add Food</button>
+                    </form>
+                </div>
+            </div>
+            <div class="remove-food-section">
+                <h1 class="remove-food-title-text">Remove Food</h1>
+                <div class="remove-food-form">
+                    <form>
+                        <p>Name</p>
+                        <input type="text" id="del-food-name" placeholder="Name"> <br><br>
+            
+                        <button type="submit" class="remove-food-button">Remove Food</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="list-food-section">
+            <h1>Food List</h1>
+            <div id="list-food-table"></div>
+        </div>
+    </div>
+
+    <hr>
+
+    <div class="recipe-section">
+        <div class ="add-remove-recipe-section">
+            <div class="add-recipe-section">
+                <h1 class="add-recipe-title-text">Add Recipe</h1>
+                <div class="add-recipe-form">
+                    <form>
+                        <p>Recipe ID</p>
+                        <input type="text" id="new-recipe-id" placeholder="Name"> <br><br>
+            
+                        <p>Difficulty</p>
+                        <input type="text" id="new-recipe-difficulty" placeholder="e.g. 5"> <br><br>
+
+                        <p>Instructions</p>
+                        <input type="text" id="new-recipe-instructions" placeholder="e.g. Deep fry the chicken."> <br><br>
+            
+                        <button type="submit" class="add-recipe-button">Add Recipe</button>
+                    </form>
+                </div>
+            </div>
+            <div class="remove-recipe-section">
+                <h1 class="remove-recipe-title-text">Remove Recipe</h1>
+                <div class="remove-recipe-form">
+                    <form>
+                        <p>Recipe ID</p>
+                        <input type="text" id="del-recipe-id" placeholder="Name"> <br><br>
+            
+                        <button type="submit" class="remove-recipe-button">Remove Recipe</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="list-recipe-section">
+            <h1>Recipe List</h1>
+            <div id="list-recipe-table"></div>
+        </div>
+    </div>
+
+    <!-- ===================================================================================== -->
+    <!-- External JavaScript file that contains the functionality/logic for the operations above. -->
+    <script src="notification.js"></script>
+    <script src="scripts.js"></script>
+    <script src="ingredient-and-recipe.js"></script>
+</body>
+</html>

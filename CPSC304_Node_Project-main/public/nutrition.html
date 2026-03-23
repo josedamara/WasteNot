@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <!-- This meta tag ensures that the website renders correctly across different device sizes, enhancing mobile responsiveness. -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Link to the external CSS stylesheet. Uncomment if you wish to customize or add styling. -->
+    <link rel="stylesheet" href="nutrition.css">
+
+    <title>WasteNot</title>
+</head>
+
+<body>
+    <header>
+        <div><a href="user.html">
+                User
+        </a></div>
+        <div><a href="ingredient-and-recipe.html">
+                Ingredient and Recipe
+        </a></div>
+        <div><a href="nutrition.html">
+                Nutrition
+        </a></div>
+        <div><a href="donation.html">
+                Donation
+        </a></div>
+        <div><a href="store-and-utensil.html">
+                Store and Utensil
+        </a></div>
+        <div><a href="complex-queries.html">
+                Complex Queries
+        </a></div>
+    </header>
+
+    <hr>
+
+    <div class="nutrition-section">
+        <div class="add-remove-nutrition-section">
+            <div class="add-nutrition-section">
+                <h1 class="add-nutrition-title-text">Add Nutrition</h1>
+                <div>
+                    <form id="add-nutrition-form">
+                        <p>Ingredient name</p>
+                        <input type="text" id="new-nutrition-name" placeholder="Name"> <br><br>
+
+                        <p>Fat (in mg)</p>
+                        <input type="text" id="new-nutrition-fat" placeholder=""> <br><br>
+
+                        <p>Protein (in mg)</p>
+                        <input type="text" id="new-nutrition-protein" placeholder=""> <br><br>
+                        
+                        <p>Carbohydrate (in mg)</p>
+                        <input type="text" id="new-nutrition-carbohydrate" placeholder=""> <br><br>
+                        
+                        <p>Sodium (in mg)</p>
+                        <input type="text" id="new-nutrition-sodium" placeholder=""> <br><br>
+
+                        <p>Potassium (in mg)</p>
+                        <input type="text" id="new-nutrition-potassium" placeholder=""> <br><br>
+
+                        <button type="submit" class="add-nutrition-button">Add nutrition</button>
+                    </form>
+                </div>
+            </div>
+            <div class="remove-nutrition-section">
+                <h1 class="remove-nutrition-title-text">Remove Nutrition</h1>
+                <div>
+                    <form id="remove-nutrition-form">
+                        <p>Ingredient name</p>
+                        <input type="text" id="del-nutrition-name" placeholder="Name"> <br><br>
+
+                        <button type="submit">Remove nutrition</button>
+                    </form>
+                </div>
+            </div>
+            <div class="update-nutrition-section">
+                <h1 class="update-nutrition-title-text">Update nutrition</h1>
+
+                <!-- <form class="update-nutrition-form"> -->
+                <p>Ingredient name</p>
+                <input type="text" id="nutrition-email-to-be-updated" placeholder="Name"> <br><br>
+
+                <select id="nutritionVariableSelector">
+                    <option value="" class="">-- Select Variable --</option>
+                    <option value="nameVariable" class="">Name</option>
+                    <option value="addressVariable" class="">Address</option>
+                    <option value="emailVariable" class="">Email</option>
+                </select>
+
+                <div id="updatenutritionFormFields"></div>
+                <!-- </form> -->
+            </div>
+        </div>
+        <div class="list-nutrition-section">
+            <h1 class="list-nutrition-title-text">Nutrition List</h1>
+            <div>
+                <button onclick="fetchTableData()">Show all nutritions</button>
+            </div>
+            <table id="list-nutrition-table">
+                <thead>
+                    <tr>
+                        <th>Ingredient Name</th>
+                        <th>Fat (in mg)</th>
+                        <th>Protein (in mg)</th>
+                        <th>Carbohydrate (in mg)</th>
+                        <th>Sodium (in mg)</th>
+                        <th>Potassium (in mg)</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+        </div>
+        <div class="list-nutrition-selection-section">
+            <h1 class="list-nutrition-selection-title-text">Nutrition Selection List</h1>
+            <button onclick="addCondition()">Add condition</button>
+            <div id="list-nutrition-selection-conditions"></div>
+            <div>
+                <button onclick="fetchTableData()">Show selected nutritions</button>
+            </div>
+            <table id="list-nutrition-selection-table">
+                <thead>
+                    <tr>
+                        <th>Ingredient Name</th>
+                        <th>Fat (in mg)</th>
+                        <th>Protein (in mg)</th>
+                        <th>Carbohydrate (in mg)</th>
+                        <th>Sodium (in mg)</th>
+                        <th>Potassium (in mg)</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+        </div>
+    </div>
+
+    <hr>
+
+    <div class="favorite-section">
+        <div class="add-remove-favorite-section">
+            <div class="add-favorite-section">
+                <h1 class="add-favorite-title-text">Add Favorite Recipe</h1>
+                <div class="add-favorite-form">
+                    <form>
+                        <p>Food name</p>
+                        <input type="text" id="new-favorite-food-name" placeholder="e.g Fried chicken"> <br><br>
+
+                        <p>Recipe ID</p>
+                        <input type="text" id="new-favorite-recipe-id" placeholder="e.g. 1"> <br><br>
+
+                        <button type="submit" class="add-favorite-button">Add Favorite Recipe</button>
+                    </form>
+                </div>
+            </div>
+            <div class="remove-favorite-section">
+                <h1 class="remove-favorite-title-text">Remove Favorite Recipe</h1>
+                <div class="remove-favorite-form">
+                    <form>
+                        <p>Food name</p>
+                        <input type="text" id="del-favorite-food-name" placeholder="e.g Fried chicken"> <br><br>
+
+                        <p>Recipe ID</p>
+                        <input type="text" id="del-favorite-recipe-id" placeholder="e.g. 1"> <br><br>
+
+                        <button type="submit" class="remove-favorite-button">Remove Favorite Recipe</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="list-favorite-section">
+            <h1>Favorite Recipe List</h1>
+            <div id="list-favorite-table"></div>
+        </div>
+    </div>
+
+    <!-- ===================================================================================== -->
+    <!-- External JavaScript file that contains the functionality/logic for the operations above. -->
+    <script src="notification.js"></script>
+    <script src="scripts.js"></script>
+    <script src="nutrition.js"></script>
+</body>
+
+</html>

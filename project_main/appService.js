@@ -449,7 +449,7 @@ async function createDonateTo(userEmail, ingredientName, serviceID, donationDate
     return await withOracleDB(async (connection) => {
         const sql = `
             INSERT INTO DONATETO(UserEmail, IngredientName, ServiceID, DonationDate, Quantity, Unit)
-            VALUES (:userEmail, :ingredientName, :serviceID, :donationDate, :quantity, :unit)
+            VALUES (:userEmail, :ingredientName, :serviceID, TO_DATE(:donationDate, 'YYYY-MM-DD'), :quantity, :unit)
         `;
         return await connection.execute(
             sql,

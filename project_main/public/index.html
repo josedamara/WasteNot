@@ -1,27 +1,851 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <!-- This meta tag ensures that the website renders correctly across different device sizes, enhancing mobile responsiveness. -->
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>WasteNot — Zero Waste Kitchen</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="index.css">  
 
-    <!-- Link to the external CSS stylesheet. Uncomment if you wish to customize or add styling. -->
-    <link rel="stylesheet" href="styles.css">  
-
-    <title>WasteNot</title>
 </head>
 <body>
-    <div class="home-title">
-        <h1 class="home-title-text">WasteNot</h1>
-        <p><em>"Because every bite saved is a win for the planet"</em></p>
-    </div>
+<div id="app">
 
-    <div class="home-start">
-        <a href="./register.html"><p class="home-start-button" target="_blank"><strong>START</strong></p></a>
+  <!-- ===================== SIDEBAR ===================== -->
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-logo">
+      <div class="brand">
+        <div class="brand-icon">🌿</div>
+        <div class="brand-name">WasteNot</div>
+      </div>
+      <div class="brand-tagline">Zero Waste Kitchen</div>
     </div>
+    <nav class="sidebar-nav">
+      <div class="nav-section-label">Overview</div>
+      <div class="nav-item active" data-page="start">
+        <span class="nav-icon">🏠</span> Dashboard
+      </div>
 
-    <!-- ===================================================================================== -->
-    <!-- External JavaScript file that contains the functionality/logic for the operations above. -->
-    <script src="scripts.js"></script>
+      <div class="nav-section-label">People</div>
+      <div class="nav-item" data-page="users">
+        <span class="nav-icon">👤</span> Users
+        <span class="nav-badge" id="badge-users">0</span>
+      </div>
+
+      <div class="nav-section-label">Kitchen</div>
+      <div class="nav-item" data-page="ingredients">
+        <span class="nav-icon">🥦</span> Ingredients & Recipes
+        <span class="nav-badge" id="badge-recipes">0</span>
+      </div>
+      <div class="nav-item" data-page="nutrition">
+        <span class="nav-icon">📊</span> Nutrition
+      </div>
+
+      <div class="nav-section-label">Community</div>
+      <div class="nav-item" data-page="donation">
+        <span class="nav-icon">🤝</span> Donations
+      </div>
+
+      <div class="nav-section-label">Resources</div>
+      <div class="nav-item" data-page="store-utensil">
+        <span class="nav-icon">🏪</span> Stores & Utensils
+      </div>
+    </nav>
+    <!-- <div class="sidebar-footer">WasteNot v1.0 · © 2025</div> -->
+  </aside>
+
+  <!-- ===================== MAIN ===================== -->
+  <div class="main">
+    <header class="topbar">
+      <div>
+        <div class="topbar-title" id="topbar-title">Dashboard</div>
+        <div class="topbar-subtitle" id="topbar-subtitle">Welcome back — let's reduce waste today</div>
+      </div>
+      <div class="topbar-right">
+        <div class="topbar-search">
+          <span>🔍</span>
+          <input type="text" placeholder="Search anything…" id="global-search">
+        </div>
+        <div class="avatar">W</div>
+      </div>
+    </header>
+
+    <div class="page-content">
+
+      <!-- ==================== PAGE: START ==================== -->
+      <div class="page active" id="page-start">
+        <div class="hero-banner">
+          <div class="hero-title">Turn Leftovers<br>Into Masterpieces 🍲</div>
+          <div class="hero-subtitle">WasteNot helps you discover recipes, track ingredients, and connect with your community to eliminate food waste.</div>
+          <div class="hero-actions">
+            <button class="hero-btn hero-btn-primary" onclick="navigateTo('ingredients')">🥦 Browse Recipes</button>
+            <button class="hero-btn hero-btn-outline" onclick="navigateTo('donation')">🤝 Donate Food</button>
+          </div>
+        </div>
+
+        <div class="stat-grid" id="dashboard-stats">
+          <div class="stat-card">
+            <div class="stat-icon">👤</div>
+            <div class="stat-value" id="st-users">0</div>
+            <div class="stat-label">Registered Users</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon">🥦</div>
+            <div class="stat-value" id="st-ingredients">0</div>
+            <div class="stat-label">Ingredients</div>
+          </div>
+          <div class="stat-card accent">
+            <div class="stat-icon">📖</div>
+            <div class="stat-value" id="st-recipes">0</div>
+            <div class="stat-label">Recipes</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon">🤝</div>
+            <div class="stat-value" id="st-donations">0</div>
+            <div class="stat-label">Donations Made</div>
+          </div>
+        </div>
+
+        <div class="dashboard-grid">
+          <div>
+            <div class="section-header">
+              <div class="section-heading">Quick Actions</div>
+            </div>
+            <div class="quick-actions">
+              <div class="qa-card" onclick="openModal('modal-add-ingredient')">
+                <div class="qa-icon">➕</div>
+                <div class="qa-label">Add Ingredient</div>
+                <div class="qa-desc">Log a leftover ingredient</div>
+              </div>
+              <div class="qa-card" onclick="openModal('modal-add-recipe')">
+                <div class="qa-icon">📖</div>
+                <div class="qa-label">Add Recipe</div>
+                <div class="qa-desc">Share a new recipe</div>
+              </div>
+              <div class="qa-card" onclick="openModal('modal-add-user')">
+                <div class="qa-icon">👤</div>
+                <div class="qa-label">New User</div>
+                <div class="qa-desc">Register a user</div>
+              </div>
+              <div class="qa-card" onclick="openModal('modal-add-donation')">
+                <div class="qa-icon">🎁</div>
+                <div class="qa-label">Donate</div>
+                <div class="qa-desc">Create a donation</div>
+              </div>
+            </div>
+
+            <div class="card">
+              <div class="card-title"><span class="ct-icon">📖</span> Recent Recipes</div>
+              <div id="recent-recipes-list">
+                <div class="empty-state">
+                  <div class="es-icon">📖</div>
+                  <div class="es-title">No recipes yet</div>
+                  <div class="es-sub">Add your first recipe to see it here</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div>
+            <div class="card" style="margin-bottom:20px;">
+              <div class="card-title"><span class="ct-icon">💡</span> Zero-Waste Tips</div>
+              <div class="tip-card">
+                <div class="tip-title">🥕 Use vegetable peels</div>
+                <div class="tip-body">Carrot and potato peels can be roasted with oil and salt for a crispy, nutritious snack.</div>
+              </div>
+              <div class="tip-card">
+                <div class="tip-title">🧅 Regrow spring onions</div>
+                <div class="tip-body">Place onion roots in a glass of water on a sunny windowsill. They'll regrow in a few days!</div>
+              </div>
+              <div class="tip-card">
+                <div class="tip-title">🍞 Stale bread ideas</div>
+                <div class="tip-body">Stale bread makes great breadcrumbs, croutons, French toast, or a panzanella salad.</div>
+              </div>
+            </div>
+
+            <div class="card">
+              <div class="card-title"><span class="ct-icon">📊</span> Nutrition Overview</div>
+              <div id="dash-nutrition">
+                <p style="font-size:13px;color:var(--light)">Add ingredients with nutrition data to see a summary here.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ==================== PAGE: USERS ==================== -->
+      <div class="page" id="page-users">
+        <div class="tab-bar" id="users-tab-bar">
+          <button class="tab-btn active" data-tab="users-list">Users</button>
+          <button class="tab-btn" data-tab="fav-recipes">Favourite Recipes</button>
+        </div>
+
+        <!-- Tab: Users -->
+        <div class="tab-panel active" id="tab-users-list">
+          <div class="toolbar">
+            <div class="search-box"><span>🔍</span><input type="text" placeholder="Search users…" id="search-users" oninput="filterTable('users-table', this.value)"></div>
+            <div class="spacer"></div>
+            <button class="btn btn-primary" onclick="openModal('modal-add-user')">➕ Add User</button>
+          </div>
+          <div class="table-wrap">
+            <table>
+              <thead><tr><th>Name</th><th>Email</th><th>Joined</th><th>Actions</th></tr></thead>
+              <tbody id="users-table"></tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Tab: Fav Recipes -->
+        <div class="tab-panel" id="tab-fav-recipes">
+          <div class="toolbar">
+            <div class="search-box"><span>🔍</span><input type="text" placeholder="Search favourites…" id="search-fav" oninput="filterTable('fav-table', this.value)"></div>
+            <div class="spacer"></div>
+            <button class="btn btn-primary" onclick="openModal('modal-add-fav')">➕ Add Favourite</button>
+          </div>
+          <div class="table-wrap">
+            <table>
+              <thead><tr><th>User</th><th>Recipe</th><th>Actions</th></tr></thead>
+              <tbody id="fav-table"></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- ==================== PAGE: INGREDIENTS & RECIPES ==================== -->
+      <div class="page" id="page-ingredients">
+        <div class="tab-bar" id="ing-tab-bar">
+          <button class="tab-btn active" data-tab="ing-list">Ingredients</button>
+          <button class="tab-btn" data-tab="food-list">Foods</button>
+          <button class="tab-btn" data-tab="recipe-list">Recipes</button>
+        </div>
+
+        <!-- Ingredients Tab -->
+        <div class="tab-panel active" id="tab-ing-list">
+          <div class="toolbar">
+            <div class="search-box"><span>🔍</span><input type="text" placeholder="Search ingredients…" id="search-ing" oninput="filterTable('ing-table', this.value)"></div>
+            <!-- <div class="filter-chips" style="margin-bottom:0">
+              <div class="chip active" onclick="setChip(this,'ing-table','')">All</div>
+              <div class="chip" onclick="setChip(this,'ing-table','vegetable')">🥦 Vegetable</div>
+              <div class="chip" onclick="setChip(this,'ing-table','fruit')">🍎 Fruit</div>
+              <div class="chip" onclick="setChip(this,'ing-table','dairy')">🥛 Dairy</div>
+              <div class="chip" onclick="setChip(this,'ing-table','protein')">🥩 Protein</div>
+            </div> -->
+            <div class="spacer"></div>
+            <button class="btn btn-primary" onclick="openModal('modal-add-ingredient')">➕ Add Ingredient</button>
+          </div>
+          <div class="table-wrap">
+            <table>
+              <thead><tr><th>Ingredient</th><th>Shelf Life (days)</th><th>Actions</th></tr></thead>
+              <tbody id="ing-table"></tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Foods Tab -->
+        <div class="tab-panel" id="tab-food-list">
+          <div class="toolbar">
+            <div class="search-box"><span>🔍</span><input type="text" placeholder="Search foods…" id="search-food" oninput="filterTable('food-table', this.value)"></div>
+            <div class="spacer"></div>
+            <button class="btn btn-primary" onclick="openModal('modal-add-food')">➕ Add Food</button>
+          </div>
+          <div class="table-wrap">
+            <table>
+              <thead><tr><th>Food Name</th><th>Origin</th><th>Description</th><th>Actions</th></tr></thead>
+              <tbody id="food-table"></tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Recipes Tab -->
+        <div class="tab-panel" id="tab-recipe-list">
+          <div class="toolbar">
+            <div class="search-box"><span>🔍</span><input type="text" placeholder="Search recipes…" id="search-recipe" oninput="filterTable('recipe-table', this.value)"></div>
+            <!-- <div class="filter-chips" style="margin-bottom:0">
+              <div class="chip active" onclick="setChip(this,'recipe-table','')">All</div>
+              <div class="chip" onclick="setChip(this,'recipe-table','breakfast')">🍳 Breakfast</div>
+              <div class="chip" onclick="setChip(this,'recipe-table','lunch')">🥗 Lunch</div>
+              <div class="chip" onclick="setChip(this,'recipe-table','dinner')">🍽️ Dinner</div>
+              <div class="chip" onclick="setChip(this,'recipe-table','dessert')">🍰 Dessert</div>
+            </div> -->
+            <div class="spacer"></div>
+            <button class="btn btn-primary" onclick="openModal('modal-add-recipe')">➕ Add Recipe</button>
+          </div>
+          <div class="table-wrap">
+            <table>
+              <thead><tr><th>Recipe</th><th>Instructions</th><th>Difficulty</th><th>Actions</th></tr></thead>
+              <tbody id="recipe-table"></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- ==================== PAGE: NUTRITION ==================== -->
+      <div class="page" id="page-nutrition">
+        <div class="toolbar">
+          <div class="search-box"><span>🔍</span><input type="text" placeholder="Search nutrition…" id="search-nut" oninput="filterTable('nut-table', this.value)"></div>
+          <div class="spacer"></div>
+          <button class="btn btn-primary" onclick="openModal('modal-add-nutrition')">➕ Add Nutrition Data</button>
+        </div>
+
+        <div class="form-row cols-2" style="margin-bottom:24px; gap:20px;">
+          <div class="card">
+            <div class="card-title"><span class="ct-icon">📊</span> Macro Overview</div>
+            <!-- <div id="nut-pill-container" class="nut-pill-wrap"></div> -->
+            <div id="nut-selected-label" class="nut-selected-label" style="display:none">
+              <span class="nsl-dot"></span>
+              <span id="nut-selected-name">—</span>
+            </div>
+            <div id="macro-chart-area">
+              <p style="font-size:13px;color:var(--light)">Add nutrition data, then click an ingredient to see its breakdown.</p>
+            </div>
+          </div>
+          <div class="card">
+            <div class="card-title"><span class="ct-icon">⚡</span> Top Nutritious Ingredients</div>
+            <div id="top-nutrition-list">
+              <p style="font-size:13px;color:var(--light)">No data yet.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Ingredient</th>
+                <th>Fat (g)</th>
+                <th>Protein (g)</th>
+                <th>Carbs (g)</th>
+                <th>Sodium (mg)</th>
+                <th>Potassium (mg)</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody id="nut-table"></tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- ==================== PAGE: DONATION ==================== -->
+      <div class="page" id="page-donation">
+        <div class="tab-bar" id="don-tab-bar">
+          <button class="tab-btn active" data-tab="don-services">Community Services</button>
+          <button class="tab-btn" data-tab="don-facilities">Aid Facilities</button>
+          <button class="tab-btn" data-tab="don-list">Donation List</button>
+        </div>
+
+        <!-- Community Services -->
+        <div class="tab-panel active" id="tab-don-services">
+          <div class="toolbar">
+            <div class="search-box"><span>🔍</span><input type="text" placeholder="Search services…" id="search-svc" oninput="filterCards('svc-list', this.value)"></div>
+            <div class="spacer"></div>
+            <button class="btn btn-primary" onclick="openModal('modal-add-service')">➕ Add Service</button>
+          </div>
+          <div class="item-grid" id="svc-list" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr))"></div>
+        </div>
+
+        <!-- Aid Facilities -->
+        <div class="tab-panel" id="tab-don-facilities">
+          <div class="toolbar">
+            <div class="search-box"><span>🔍</span><input type="text" placeholder="Search facilities…" id="search-fac" oninput="filterCards('fac-list', this.value)"></div>
+            <div class="spacer"></div>
+            <button class="btn btn-primary" onclick="openModal('modal-add-facility')">➕ Add Facility</button>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:12px;" id="fac-list"></div>
+        </div>
+
+        <!-- Donation List -->
+        <div class="tab-panel" id="tab-don-list">
+          <div class="toolbar">
+            <div class="search-box"><span>🔍</span><input type="text" placeholder="Search donations…" id="search-don" oninput="filterTable('don-table', this.value)"></div>
+            <div class="spacer"></div>
+            <button class="btn btn-primary" onclick="openModal('modal-add-donation')">➕ Add Donation</button>
+          </div>
+          <div class="table-wrap">
+            <table>
+              <thead><tr><th>Donor</th><th>Item</th><th>Qty</th><th>Facility</th><th>Date</th><th>Actions</th></tr></thead>
+              <tbody id="don-table"></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- ==================== PAGE: STORE & UTENSIL ==================== -->
+      <div class="page" id="page-store-utensil">
+        <div class="tab-bar" id="su-tab-bar">
+          <button class="tab-btn active" data-tab="store-list">Stores</button>
+          <button class="tab-btn" data-tab="utensil-list">Utensils</button>
+        </div>
+
+        <!-- Stores -->
+        <div class="tab-panel active" id="tab-store-list">
+          <div class="toolbar">
+            <div class="search-box"><span>🔍</span><input type="text" placeholder="Search stores…" id="search-store" oninput="filterTable('store-table', this.value)"></div>
+            <!-- <div class="filter-chips" style="margin-bottom:0">
+              <div class="chip active" onclick="setChip(this,'store-table','')">All</div>
+              <div class="chip" onclick="setChip(this,'store-table','grocery')">🛒 Grocery</div>
+              <div class="chip" onclick="setChip(this,'store-table','market')">🏪 Market</div>
+              <div class="chip" onclick="setChip(this,'store-table','online')">🌐 Online</div>
+            </div> -->
+            <div class="spacer"></div>
+            <button class="btn btn-primary" onclick="openModal('modal-add-store')">➕ Add Store</button>
+          </div>
+          <div class="table-wrap">
+            <table>
+              <thead><tr><th>Store Name</th><th>Location</th><th>Actions</th></tr></thead>
+              <tbody id="store-table"></tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Utensils -->
+        <div class="tab-panel" id="tab-utensil-list">
+          <div class="toolbar">
+            <div class="search-box"><span>🔍</span><input type="text" placeholder="Search utensils…" id="search-utensil" oninput="filterCards('utensil-grid', this.value)"></div>
+            <!-- <div class="filter-chips" style="margin-bottom:0">
+              <div class="chip active" onclick="filterUtensilCategory(this,'')">All</div>
+              <div class="chip" onclick="filterUtensilCategory(this,'cutting')">🔪 Cutting</div>
+              <div class="chip" onclick="filterUtensilCategory(this,'cooking')">🍳 Cooking</div>
+              <div class="chip" onclick="filterUtensilCategory(this,'baking')">🥄 Baking</div>
+              <div class="chip" onclick="filterUtensilCategory(this,'storage')">📦 Storage</div>
+            </div> -->
+            <div class="spacer"></div>
+            <button class="btn btn-primary" onclick="openModal('modal-add-utensil')">➕ Add Utensil</button>
+          </div>
+          <div class="item-grid" id="utensil-grid"></div>
+        </div>
+      </div>
+
+    </div><!-- /page-content -->
+  </div><!-- /main -->
+</div><!-- /app -->
+
+<!-- =====================================================================
+     MODALS
+===================================================================== -->
+
+<!-- Add User -->
+<div class="modal-overlay" id="modal-add-user">
+  <div class="modal">
+    <div class="modal-header">
+      <div class="modal-title">👤 Add User</div>
+      <button class="modal-close" onclick="closeModal('modal-add-user')">✕</button>
+    </div>
+    <div class="form-row cols-2">
+      <div class="form-group"><label class="form-label">First Name</label><input class="form-input" id="u-fname" placeholder="Jane"></div>
+      <div class="form-group"><label class="form-label">Last Name</label><input class="form-input" id="u-lname" placeholder="Doe"></div>
+    </div>
+    <div class="form-group"><label class="form-label">Email</label><input class="form-input" id="u-email" type="email" placeholder="jane@example.com"></div>
+    <div class="form-row cols-2">
+      <!-- <div class="form-group"><label class="form-label">Role</label> -->
+        <!-- <select class="form-select" id="u-role">
+          <option>User</option><option>Admin</option><option>Volunteer</option>
+        </select>
+      </div> -->
+      <div class="form-group"><label class="form-label">Location</label><input class="form-input" id="u-loc" placeholder="Vancouver, BC"></div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-secondary" onclick="closeModal('modal-add-user')">Cancel</button>
+      <button class="btn btn-primary" onclick="addUser()">➕ Add User</button>
+    </div>
+  </div>
+</div>
+
+<!-- Edit User -->
+<div class="modal-overlay" id="modal-edit-user">
+  <div class="modal">
+    <div class="modal-header">
+      <div class="modal-title">✏️ Edit User</div>
+      <button class="modal-close" onclick="closeModal('modal-edit-user')">✕</button>
+    </div>
+    <div class="form-row cols-2">
+      <div class="form-group"><label class="form-label">First Name</label><input class="form-input" id="eu-fname"></div>
+      <div class="form-group"><label class="form-label">Last Name</label><input class="form-input" id="eu-lname"></div>
+    </div>
+    <div class="form-group"><label class="form-label">Email</label><input class="form-input" id="eu-email" type="email"></div>
+    <div class="form-row cols-2">
+      <!-- <div class="form-group"><label class="form-label">Role</label>
+        <select class="form-select" id="eu-role">
+          <option>User</option><option>Admin</option><option>Volunteer</option>
+        </select>
+      </div> -->
+      <div class="form-group"><label class="form-label">Location</label><input class="form-input" id="eu-loc"></div>
+    </div>
+    <input type="hidden" id="eu-id">
+    <div class="modal-footer">
+      <button class="btn btn-secondary" onclick="closeModal('modal-edit-user')">Cancel</button>
+      <button class="btn btn-primary" onclick="saveEditUser()">💾 Save Changes</button>
+    </div>
+  </div>
+</div>
+
+<!-- Add Favourite -->
+<div class="modal-overlay" id="modal-add-fav">
+  <div class="modal">
+    <div class="modal-header">
+      <div class="modal-title">❤️ Add Favourite Recipe</div>
+      <button class="modal-close" onclick="closeModal('modal-add-fav')">✕</button>
+    </div>
+    <div class="form-group"><label class="form-label">User</label>
+      <select class="form-select" id="fav-user-sel"></select>
+    </div>
+    <div class="form-group"><label class="form-label">Recipe</label>
+      <select class="form-select" id="fav-recipe-sel"></select>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-secondary" onclick="closeModal('modal-add-fav')">Cancel</button>
+      <button class="btn btn-primary" onclick="addFav()">❤️ Add Favourite</button>
+    </div>
+  </div>
+</div>
+
+<!-- Add Ingredient -->
+<div class="modal-overlay" id="modal-add-ingredient">
+  <div class="modal">
+    <div class="modal-header">
+      <div class="modal-title">🥦 Add Ingredient</div>
+      <button class="modal-close" onclick="closeModal('modal-add-ingredient')">✕</button>
+    </div>
+    <div class="form-group"><label class="form-label">Ingredient Name</label><input class="form-input" id="ing-name" placeholder="e.g. Broccoli"></div>
+    <div class="form-row cols-2">
+      <!-- <div class="form-group"><label class="form-label">Category</label>
+        <select class="form-select" id="ing-cat">
+          <option value="vegetable">🥦 Vegetable</option>
+          <option value="fruit">🍎 Fruit</option>
+          <option value="dairy">🥛 Dairy</option>
+          <option value="protein">🥩 Protein</option>
+          <option value="grain">🌾 Grain</option>
+          <option value="other">📦 Other</option>
+        </select>
+      </div> -->
+      <!-- <div class="form-group"><label class="form-label">Unit</label>
+        <select class="form-select" id="ing-unit">
+          <option>g</option><option>kg</option><option>ml</option><option>L</option><option>pcs</option><option>tbsp</option><option>cup</option>
+        </select>
+      </div> -->
+    </div>
+    <div class="form-row cols-2">
+      <!-- <div class="form-group"><label class="form-label">Quantity</label><input class="form-input" id="ing-qty" type="number" min="0" placeholder="100"></div> -->
+      <div class="form-group"><label class="form-label">Shelf Life (days)</label><input class="form-input" id="ing-shelf-life" type="number" placeholder="5"></div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-secondary" onclick="closeModal('modal-add-ingredient')">Cancel</button>
+      <button class="btn btn-primary" onclick="addIngredient()">➕ Add Ingredient</button>
+    </div>
+  </div>
+</div>
+
+<!-- Edit Ingredient -->
+<div class="modal-overlay" id="modal-edit-ingredient">
+  <div class="modal">
+    <div class="modal-header">
+      <div class="modal-title">✏️ Edit Ingredient</div>
+      <button class="modal-close" onclick="closeModal('modal-edit-ingredient')">✕</button>
+    </div>
+    <div class="form-group"><label class="form-label">Ingredient Name</label><input class="form-input" id="ei-name"></div>
+    <div class="form-row cols-2">
+      <div class="form-group"><label class="form-label">Category</label>
+        <select class="form-select" id="ei-cat">
+          <option value="vegetable">🥦 Vegetable</option>
+          <option value="fruit">🍎 Fruit</option>
+          <option value="dairy">🥛 Dairy</option>
+          <option value="protein">🥩 Protein</option>
+          <option value="grain">🌾 Grain</option>
+          <option value="other">📦 Other</option>
+        </select>
+      </div>
+      <div class="form-group"><label class="form-label">Unit</label>
+        <select class="form-select" id="ei-unit">
+          <option>g</option><option>kg</option><option>ml</option><option>L</option><option>pcs</option><option>tbsp</option><option>cup</option>
+        </select>
+      </div>
+    </div>
+    <div class="form-row cols-2">
+      <div class="form-group"><label class="form-label">Quantity</label><input class="form-input" id="ei-qty" type="number"></div>
+      <div class="form-group"><label class="form-label">Shelf Life</label><input class="form-input" id="ei-shelf-life" type="number"></div>
+    </div>
+    <input type="hidden" id="ei-id">
+    <div class="modal-footer">
+      <button class="btn btn-secondary" onclick="closeModal('modal-edit-ingredient')">Cancel</button>
+      <button class="btn btn-primary" onclick="saveEditIngredient()">💾 Save Changes</button>
+    </div>
+  </div>
+</div>
+
+<!-- Add Food -->
+<div class="modal-overlay" id="modal-add-food">
+  <div class="modal">
+    <div class="modal-header">
+      <div class="modal-title">🍽️ Add Food</div>
+      <button class="modal-close" onclick="closeModal('modal-add-food')">✕</button>
+    </div>
+    <div class="form-group"><label class="form-label">Food Name</label><input class="form-input" id="food-name" placeholder="e.g. Caesar Salad"></div>
+    <div class="form-row cols-2">
+      <div class="form-group"><label class="form-label">Type</label>
+        <select class="form-select" id="food-type">
+          <option>Salad</option><option>Soup</option><option>Main</option><option>Side</option><option>Snack</option><option>Dessert</option>
+        </select>
+      </div>
+      <div class="form-group"><label class="form-label">Calories (kcal)</label><input class="form-input" id="food-cal" type="number" placeholder="350"></div>
+    </div>
+    <div class="form-group"><label class="form-label">Season</label>
+      <select class="form-select" id="food-season">
+        <option>All Year</option><option>Spring</option><option>Summer</option><option>Autumn</option><option>Winter</option>
+      </select>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-secondary" onclick="closeModal('modal-add-food')">Cancel</button>
+      <button class="btn btn-primary" onclick="addFood()">➕ Add Food</button>
+    </div>
+  </div>
+</div>
+
+<!-- Add Recipe -->
+<div class="modal-overlay" id="modal-add-recipe">
+  <div class="modal modal-lg">
+    <div class="modal-header">
+      <div class="modal-title">📖 Add Recipe</div>
+      <button class="modal-close" onclick="closeModal('modal-add-recipe')">✕</button>
+    </div>
+    <div class="form-group"><label class="form-label">Recipe Name</label>
+        <!-- <input class="form-input" id="rec-name" placeholder="e.g. Creamy Mushroom Pasta"> -->
+        <select class="form-select" id="rec-name"></select>
+    </div>
+    <div class="form-row cols-3">
+      <div class="form-group"><label class="form-label">Meal Type</label>
+        <select class="form-select" id="rec-meal">
+          <option value="breakfast">🍳 Breakfast</option>
+          <option value="lunch">🥗 Lunch</option>
+          <option value="dinner">🍽️ Dinner</option>
+          <option value="dessert">🍰 Dessert</option>
+          <option value="snack">🍿 Snack</option>
+        </select>
+      </div>
+      <div class="form-group"><label class="form-label">Cook Time (min)</label><input class="form-input" id="rec-time" type="number" placeholder="30"></div>
+      <div class="form-group"><label class="form-label">Servings</label><input class="form-input" id="rec-serv" type="number" placeholder="4"></div>
+    </div>
+    <div class="form-group"><label class="form-label">Ingredients (comma-separated)</label><input class="form-input" id="rec-ings" placeholder="broccoli, pasta, cream, garlic"></div>
+    <div class="form-group"><label class="form-label">Instructions</label><textarea class="form-textarea" id="rec-inst" placeholder="Describe how to make the recipe…" style="min-height:100px"></textarea></div>
+    <div class="modal-footer">
+      <button class="btn btn-secondary" onclick="closeModal('modal-add-recipe')">Cancel</button>
+      <button class="btn btn-primary" onclick="addRecipe()">📖 Add Recipe</button>
+    </div>
+  </div>
+</div>
+
+<!-- Add Nutrition -->
+<div class="modal-overlay" id="modal-add-nutrition">
+  <div class="modal">
+    <div class="modal-header">
+      <div class="modal-title">📊 Add Nutrition Data</div>
+      <button class="modal-close" onclick="closeModal('modal-add-nutrition')">✕</button>
+    </div>
+    <div class="form-group"><label class="form-label">Ingredient Name</label><input class="form-input" id="nut-name" placeholder="e.g. Broccoli"></div>
+    <div class="form-row cols-2">
+      <div class="form-group"><label class="form-label">Fat (g)</label><input class="form-input" id="nut-fat" type="number" step="0.1" placeholder="0.4"></div>
+      <div class="form-group"><label class="form-label">Protein (g)</label><input class="form-input" id="nut-prot" type="number" step="0.1" placeholder="2.8"></div>
+    </div>
+    <div class="form-row cols-2">
+      <div class="form-group"><label class="form-label">Carbohydrates (g)</label><input class="form-input" id="nut-carb" type="number" step="0.1" placeholder="7.2"></div>
+      <div class="form-group"><label class="form-label">Sodium (mg)</label><input class="form-input" id="nut-sodium" type="number" step="0.1" placeholder="33"></div>
+    </div>
+    <div class="form-group"><label class="form-label">Potassium (mg)</label><input class="form-input" id="nut-pot" type="number" step="0.1" placeholder="316"></div>
+    <div class="modal-footer">
+      <button class="btn btn-secondary" onclick="closeModal('modal-add-nutrition')">Cancel</button>
+      <button class="btn btn-primary" onclick="addNutrition()">➕ Add Nutrition</button>
+    </div>
+  </div>
+</div>
+
+<!-- Edit Nutrition -->
+<div class="modal-overlay" id="modal-edit-nutrition">
+  <div class="modal">
+    <div class="modal-header">
+      <div class="modal-title">✏️ Edit Nutrition</div>
+      <button class="modal-close" onclick="closeModal('modal-edit-nutrition')">✕</button>
+    </div>
+    <div class="form-group"><label class="form-label">Ingredient Name</label><input class="form-input" id="en-name"></div>
+    <div class="form-row cols-2">
+      <div class="form-group"><label class="form-label">Fat (g)</label><input class="form-input" id="en-fat" type="number" step="0.1"></div>
+      <div class="form-group"><label class="form-label">Protein (g)</label><input class="form-input" id="en-prot" type="number" step="0.1"></div>
+    </div>
+    <div class="form-row cols-2">
+      <div class="form-group"><label class="form-label">Carbohydrates (g)</label><input class="form-input" id="en-carb" type="number" step="0.1"></div>
+      <div class="form-group"><label class="form-label">Sodium (mg)</label><input class="form-input" id="en-sodium" type="number" step="0.1"></div>
+    </div>
+    <div class="form-group"><label class="form-label">Potassium (mg)</label><input class="form-input" id="en-pot" type="number" step="0.1"></div>
+    <input type="hidden" id="en-id">
+    <div class="modal-footer">
+      <button class="btn btn-secondary" onclick="closeModal('modal-edit-nutrition')">Cancel</button>
+      <button class="btn btn-primary" onclick="saveEditNutrition()">💾 Save Changes</button>
+    </div>
+  </div>
+</div>
+
+<!-- Add Service -->
+<div class="modal-overlay" id="modal-add-service">
+  <div class="modal">
+    <div class="modal-header">
+      <div class="modal-title">🤲 Add Community Service</div>
+      <button class="modal-close" onclick="closeModal('modal-add-service')">✕</button>
+    </div>
+    <div class="form-group"><label class="form-label">Service Name</label><input class="form-input" id="svc-name" placeholder="e.g. Sunday Soup Kitchen"></div>
+    <div class="form-row cols-2">
+      <div class="form-group"><label class="form-label">Type</label>
+        <select class="form-select" id="svc-type">
+          <option>Soup Kitchen</option><option>Food Bank</option><option>Meal Delivery</option><option>Community Garden</option><option>Other</option>
+        </select>
+      </div>
+      <div class="form-group"><label class="form-label">Frequency</label>
+        <select class="form-select" id="svc-freq">
+          <option>Weekly</option><option>Bi-weekly</option><option>Monthly</option><option>Daily</option><option>One-time</option>
+        </select>
+      </div>
+    </div>
+    <div class="form-group"><label class="form-label">Contact</label><input class="form-input" id="svc-contact" placeholder="contact@service.org"></div>
+    <div class="modal-footer">
+      <button class="btn btn-secondary" onclick="closeModal('modal-add-service')">Cancel</button>
+      <button class="btn btn-primary" onclick="addService()">➕ Add Service</button>
+    </div>
+  </div>
+</div>
+
+<!-- Add Facility -->
+<div class="modal-overlay" id="modal-add-facility">
+  <div class="modal">
+    <div class="modal-header">
+      <div class="modal-title">🏥 Add Aid Facility</div>
+      <button class="modal-close" onclick="closeModal('modal-add-facility')">✕</button>
+    </div>
+    <div class="form-group"><label class="form-label">Facility Name</label><input class="form-input" id="fac-name" placeholder="e.g. Downtown Food Pantry"></div>
+    <div class="form-row cols-2">
+      <div class="form-group"><label class="form-label">Type</label>
+        <select class="form-select" id="fac-type">
+          <option>Food Pantry</option><option>Shelter</option><option>Community Centre</option><option>Hospital</option><option>Other</option>
+        </select>
+      </div>
+      <div class="form-group"><label class="form-label">Capacity (people/day)</label><input class="form-input" id="fac-cap" type="number" placeholder="50"></div>
+    </div>
+    <div class="form-group"><label class="form-label">Address</label><input class="form-input" id="fac-addr" placeholder="123 Main St, Vancouver, BC"></div>
+    <div class="form-group"><label class="form-label">Phone / Email</label><input class="form-input" id="fac-contact" placeholder="604-000-0000"></div>
+    <div class="modal-footer">
+      <button class="btn btn-secondary" onclick="closeModal('modal-add-facility')">Cancel</button>
+      <button class="btn btn-primary" onclick="addFacility()">➕ Add Facility</button>
+    </div>
+  </div>
+</div>
+
+<!-- Add Donation -->
+<div class="modal-overlay" id="modal-add-donation">
+  <div class="modal">
+    <div class="modal-header">
+      <div class="modal-title">🎁 Add Donation</div>
+      <button class="modal-close" onclick="closeModal('modal-add-donation')">✕</button>
+    </div>
+    <div class="form-row cols-2">
+      <div class="form-group"><label class="form-label">Donor Email</label><input class="form-input" id="don-donor" placeholder="Jane@example.com"></div>
+      <div class="form-group"><label class="form-label">Item</label><input class="form-input" id="don-item" placeholder="e.g. Canned tomatoes"></div>
+    </div>
+    <div class="form-row cols-2">
+      <div class="form-group"><label class="form-label">Quantity</label><input class="form-input" id="don-qty" type="number" placeholder="5"></div>
+      <div class="form-group"><label class="form-label">Facility</label>
+        <select class="form-select" id="don-fac-sel"></select>
+      </div>
+    </div>
+    <div class="form-row cols-2">
+      <div class="form-group"><label class="form-label">Date</label><input class="form-input" id="don-date" type="date"></div>
+      <div class="form-group"><label class="form-label">Status</label>
+        <select class="form-select" id="don-status">
+          <option value="pending">Pending</option>
+          <option value="delivered">Delivered</option>
+          <option value="received">Received</option>
+        </select>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-secondary" onclick="closeModal('modal-add-donation')">Cancel</button>
+      <button class="btn btn-primary" onclick="addDonation()">🎁 Add Donation</button>
+    </div>
+  </div>
+</div>
+
+<!-- Add Store -->
+<div class="modal-overlay" id="modal-add-store">
+  <div class="modal">
+    <div class="modal-header">
+      <div class="modal-title">🏪 Add Store</div>
+      <button class="modal-close" onclick="closeModal('modal-add-store')">✕</button>
+    </div>
+    <div class="form-group"><label class="form-label">Store Name</label><input class="form-input" id="store-name" placeholder="e.g. Fresh Market"></div>
+    <div class="form-row cols-2">
+      <div class="form-group"><label class="form-label">Type</label>
+        <select class="form-select" id="store-type">
+          <option value="grocery">🛒 Grocery</option>
+          <option value="market">🏪 Market</option>
+          <option value="online">🌐 Online</option>
+          <option value="specialty">⭐ Specialty</option>
+        </select>
+      </div>
+      <div class="form-group"><label class="form-label">Hours</label><input class="form-input" id="store-hours" placeholder="Mon–Fri 8am–8pm"></div>
+    </div>
+    <div class="form-group"><label class="form-label">Location / URL</label><input class="form-input" id="store-loc" placeholder="123 Granville St, Vancouver"></div>
+    <div class="modal-footer">
+      <button class="btn btn-secondary" onclick="closeModal('modal-add-store')">Cancel</button>
+      <button class="btn btn-primary" onclick="addStore()">➕ Add Store</button>
+    </div>
+  </div>
+</div>
+
+<!-- Add Utensil -->
+<div class="modal-overlay" id="modal-add-utensil">
+  <div class="modal">
+    <div class="modal-header">
+      <div class="modal-title">🥄 Add Utensil</div>
+      <button class="modal-close" onclick="closeModal('modal-add-utensil')">✕</button>
+    </div>
+    <div class="form-group"><label class="form-label">Utensil Name</label><input class="form-input" id="ut-name" placeholder="e.g. Chef's Knife"></div>
+    <div class="form-row cols-2">
+      <div class="form-group"><label class="form-label">Category</label>
+        <select class="form-select" id="ut-cat">
+          <option value="cutting">🔪 Cutting</option>
+          <option value="cooking">🍳 Cooking</option>
+          <option value="baking">🥄 Baking</option>
+          <option value="storage">📦 Storage</option>
+          <option value="other">📌 Other</option>
+        </select>
+      </div>
+      <div class="form-group"><label class="form-label">Material</label><input class="form-input" id="ut-mat" placeholder="Stainless Steel"></div>
+    </div>
+    <div class="form-group"><label class="form-label">Notes</label><textarea class="form-textarea" id="ut-notes" placeholder="Optional notes…"></textarea></div>
+    <div class="modal-footer">
+      <button class="btn btn-secondary" onclick="closeModal('modal-add-utensil')">Cancel</button>
+      <button class="btn btn-primary" onclick="addUtensil()">➕ Add Utensil</button>
+    </div>
+  </div>
+</div>
+
+<!-- Confirm Delete -->
+<div class="modal-overlay" id="modal-confirm">
+  <div class="modal" style="max-width:400px">
+    <div class="modal-header">
+      <div class="modal-title">⚠️ Confirm Delete</div>
+      <button class="modal-close" onclick="closeModal('modal-confirm')">✕</button>
+    </div>
+    <p style="font-size:14px;color:var(--mid);line-height:1.6" id="confirm-msg">Are you sure you want to delete this item? This action cannot be undone.</p>
+    <div class="modal-footer">
+      <button class="btn btn-secondary" onclick="closeModal('modal-confirm')">Cancel</button>
+      <button class="btn btn-danger" id="confirm-ok-btn">🗑️ Delete</button>
+    </div>
+  </div>
+</div>
+
+<!-- Toast Container -->
+<div id="toast-container"></div>
+
+<!-- =====================================================================
+     JAVASCRIPT
+===================================================================== -->
+<script src="index.js"></script>
 </body>
 </html>

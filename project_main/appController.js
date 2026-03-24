@@ -20,8 +20,18 @@ router.get('/get-all-users', async (req, res) => {
     res.json({data: tableContent});
 });
 
+router.get('/get-all-favorites', async (req, res) => {
+    const tableContent = await appService.getAllFavorites();
+    res.json({data: tableContent});
+});
+
 router.get('/get-all-community-service', async (req, res) => {
     const tableContent = await appService.getAllCommunityServices();
+    res.json({data: tableContent});
+});
+
+router.get('/get-all-aid-facility', async (req, res) => {
+    const tableContent = await appService.getAllAidFacilities();
     res.json({data: tableContent});
 });
 

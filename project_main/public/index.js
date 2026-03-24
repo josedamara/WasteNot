@@ -345,6 +345,7 @@ async function deleteUser(email) {
 
             const responseData = await response.json();
 
+<<<<<<< HEAD
             if (!responseData.success) {
                 toast('Error removing user. The user with that name and material may not exist.', 'error');
                 return;
@@ -359,6 +360,17 @@ async function deleteUser(email) {
             console.error('Error:', error);
             
             return;
+=======
+            if (responseData.success) {
+                toast('User removed successfully!', 'success');
+                fetchAndDisplayUsers();
+            } else {
+                toast('Error removing user. The user with that name and material may not exist.', 'error');
+            }
+        } catch (error) {
+            toast('Network error while removing user', 'error');
+            console.error('Error:', error);
+>>>>>>> 4a3136df9ce3b033ac35413b502964d071a58c1c
         }
 
         state.users = state.users.filter(x => x.email !== email);

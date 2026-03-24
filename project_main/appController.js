@@ -17,37 +17,37 @@ router.get('/check-db-connection', async (req, res) => {
 
 router.get('/get-all-users', async (req, res) => {
     const tableContent = await appService.getAllUsers();
-    res.json({data: tableContent});
+    res.json({ data: tableContent });
 });
 
 router.get('/get-all-favorites', async (req, res) => {
     const tableContent = await appService.getAllFavorites();
-    res.json({data: tableContent});
+    res.json({ data: tableContent });
 });
 
 router.get('/get-all-community-service', async (req, res) => {
     const tableContent = await appService.getAllCommunityServices();
-    res.json({data: tableContent});
+    res.json({ data: tableContent });
 });
 
 router.get('/get-all-aid-facility', async (req, res) => {
     const tableContent = await appService.getAllAidFacilities();
-    res.json({data: tableContent});
+    res.json({ data: tableContent });
 });
 
 router.get('/get-all-donate-to', async (req, res) => {
     const tableContent = await appService.getAllDonateTo();
-    res.json({data: tableContent});
+    res.json({ data: tableContent });
 });
 
 router.get('/get-all-store', async (req, res) => {
     const tableContent = await appService.getAllStores();
-    res.json({data: tableContent});
+    res.json({ data: tableContent });
 });
 
 router.get('/get-all-nutrition-types', async (req, res) => {
     const tableContent = await appService.getAllNutritionTypes();
-    res.json({data: tableContent});
+    res.json({ data: tableContent });
 });
 
 router.post("/login-user", async (req, res) => {
@@ -65,7 +65,7 @@ router.post("/login-user", async (req, res) => {
 router.post('/get-selection-nutrition-types', async (req, res) => {
     const { conditions } = req.body;
     const tableContent = await appService.getSelectionNutritionTypes(conditions);
-    res.json({data: tableContent});
+    res.json({ data: tableContent });
 });
 
 router.post("/create-user", async (req, res) => {
@@ -172,14 +172,14 @@ router.get("/get-store-projection", async (req, res) => {
     const rawVariables = req.query.vars || "";
     const variableArray = rawVariables.split(",").filter(v => v.trim() !== "");
     const projectionResult = await appService.getStoreProjection(variableArray);
-    res.json({data: projectionResult});
+    res.json({ data: projectionResult });
 })
 
 router.post("/get-join-donation-and-community-service", async (req, res) => {
     // const { query } = req.body;
     const conditions = Array.isArray(req.body.conditions) ? req.body.conditions : [];
     const tableContent = await appService.getJoinDonationService(conditions);
-    res.json({data: tableContent});
+    res.json({ data: tableContent });
 })
 
 // NUTRITION TYPES endpoints
@@ -228,7 +228,7 @@ router.post("/delete-utensil", async (req, res) => {
 
 router.get('/get-all-utensil', async (req, res) => {
     const tableContent = await appService.getAllUtensil();
-    res.json({data: tableContent});
+    res.json({ data: tableContent });
 });
 
 // STORE endpoints  
@@ -404,25 +404,25 @@ router.get("/join-donations-services", async (req, res) => {
 // 7️. AGGREGATION GROUP BY
 router.get("/query7", async (req, res) => {
     const tableContent = await appService.query7();
-    res.json({data: tableContent});
+    res.json({ data: tableContent });
 });
 
 // 8️. HAVING
 router.get("/query8", async (req, res) => {
     const tableContent = await appService.query8(req.query.threshold || 1);
-    res.json({data: tableContent});
+    res.json({ data: tableContent });
 });
 
 // 9️. NESTED AGGREGATION
 router.get("/query9", async (req, res) => {
     const tableContent = await appService.query9();
-    res.json({data: tableContent});
+    res.json({ data: tableContent });
 });
 
 // 10. DIVISION
 router.get("/query10", async (req, res) => {
     const tableContent = await appService.query10();
-    res.json({data: tableContent});
+    res.json({ data: tableContent });
 });
 
 module.exports = router;

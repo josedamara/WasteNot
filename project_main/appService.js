@@ -89,7 +89,7 @@ async function initiateDemotable() {
     return await withOracleDB(async (connection) => {
         try {
             await connection.execute(`DROP TABLE DEMOTABLE`);
-        } catch(err) {
+        } catch (err) {
             console.log('Table might not exist, proceeding to create...');
         }
 
@@ -393,7 +393,7 @@ async function createUtensil(name, material, sustainable) {
         `;
         return await connection.execute(
             sql,
-            { name, material, sustainable},
+            { name, material, sustainable },
             { autoCommit: true }
         );
     }).catch(() => {
@@ -409,7 +409,7 @@ async function createStore(storeName, address, contact) {
         `;
         return await connection.execute(
             sql,
-            { storeName, address, contact},
+            { storeName, address, contact },
             { autoCommit: true }
         );
     }).catch(() => {

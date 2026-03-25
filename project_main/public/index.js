@@ -282,88 +282,22 @@ async function saveEditUser() {
 
     const u = state.users.find(x => x.email === originalEmail);
     if (!u) return;
-
-    try {
-        // Update name
-        const r1 = await fetch('/update-user-name', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ email: originalEmail, newName })
-        });
-        const d1 = await r1.json();
-        if (!d1.success) { toast('Error updating name', 'error'); return; }
-
-        // Update address
-        const r2 = await fetch('/update-user-address', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ email: originalEmail, newAddress })
-        });
-        const d2 = await r2.json();
-        if (!d2.success) { toast('Error updating address', 'error'); return; }
-
-        // Update email (do this last since it changes the key)
-        if (newEmail !== originalEmail) {
-            const r3 = await fetch('/update-user-email', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ email: originalEmail, newEmail })
-            });
-            const d3 = await r3.json();
-            if (!d3.success) { toast('Error updating email', 'error'); return; }
-        }
-
-        // Update local state only after all backend calls succeed
-        u.name = newName;
-        u.loc = newAddress;
-        u.email = newEmail;
-
-        closeModal('modal-edit-user');
-        renderUsers();
-        toast('User updated!');
-
-    } catch (error) {
-        toast('Network error while updating user', 'error');
-        console.error('Error:', error);
-    }
-}
-
-async function deleteUser(email) {
-    const u = state.users.find(x => x.email === email);
-    confirmDelete(`Delete user "${u.name}"? This will also remove their favourites.`, async () => {
-        try {
-            const response = await fetch('/delete-user', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({
-                    email: email
-                })
-            });
-
-            const responseData = await response.json();
-
-            if (!responseData.success) {
-                toast('Error removing user. The user with that name and material may not exist.', 'error');
-                return;
-            } 
-
-            await fetchAndDisplayUsers();
-            renderUsers();
-            updateDashboard();
-            toast('User deleted', 'info');
-        } catch (error) {
-            toast('Network error while removing user', 'error');
-            console.error('Error:', error);
-            
-            return;
-        }
-
-        state.users = state.users.filter(x => x.email !== email);
-        state.favourites = state.favourites.filter(x => x.userEmail !== email);
-        renderUsers(); renderFavourites(); updateDashboard();
-        toast('User deleted', 'info');
+    u.name  = `${document.getElementById('eu-fname').value.trim()} ${document.getElementById('eu-lname').value.trim()}`;
+    u.email = document.getElementById('eu-email').value.trim();
+    // u.role  = document.getElementById('eu-role').value;
+    u.loc   = document.getElementById('eu-loc').value.trim();
+    closeModal('modal-edit-user');
+    renderUsers();
+    toast('User updated!');
+  }
+  
+  function deleteUser(id) {
+    const u = state.users.find(x => x.id === id);
+    confirmDelete(`Delete user "${u.name}"? This will also remove their favourites.`, () => {
+      state.users = state.users.filter(x => x.id !== id);
+      state.favourites = state.favourites.filter(x => x.userId !== id);
+      renderUsers(); renderFavourites(); updateDashboard();
+      toast('User deleted', 'info');
     });
 }
 
